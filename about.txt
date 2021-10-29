@@ -1,0 +1,2 @@
+这是一个IDEA2019+mybatis+mysql数据库下的基于springboot+vue的简单小型加油站管理系统
+------开发者钻石眼眸
