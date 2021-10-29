@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbxy.ssm.admin.user.mapper.UserLoginMapper">
+  <resultMap id="BaseResultMap" type="com.hbxy.ssm.admin.user.model.UserLogin">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_login_id" jdbcType="VARCHAR" property="userLoginId" />
+    <result column="current_password" jdbcType="VARCHAR" property="currentPassword" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_type" jdbcType="VARCHAR" property="userType" />
+    <result column="m_sex" jdbcType="VARCHAR" property="mSex" />
+    <result column="m_age" jdbcType="INTEGER" property="mAge" />
+    <result column="m_money" jdbcType="REAL" property="mMoney" />
+    <result column="m_phone" jdbcType="VARCHAR" property="mPhone" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, user_login_id, current_password, user_name, user_type, m_sex, m_age, m_money, 
+    m_phone
+  </sql>
+  <select id="selectByExample" parameterType="com.hbxy.ssm.admin.user.model.UserLoginExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_login
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_login
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user_login
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hbxy.ssm.admin.user.model.UserLoginExample">
+    delete from user_login
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hbxy.ssm.admin.user.model.UserLogin">
+    insert into user_login (user_id, user_login_id, current_password, 
+      user_name, user_type, m_sex, 
+      m_age, m_money, m_phone)
+    values (#{userId,jdbcType=VARCHAR}, #{userLoginId,jdbcType=VARCHAR}, #{currentPassword,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{userType,jdbcType=VARCHAR}, #{mSex,jdbcType=VARCHAR}, 
+      #{mAge,jdbcType=INTEGER}, #{mMoney,jdbcType=REAL}, #{mPhone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hbxy.ssm.admin.user.model.UserLogin">
+    insert into user_login
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userLoginId != null">
+        user_login_id,
+      </if>
+      <if test="currentPassword != null">
+        current_password,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="mSex != null">
+        m_sex,
+      </if>
+      <if test="mAge != null">
+        m_age,
+      </if>
+      <if test="mMoney != null">
+        m_money,
+      </if>
+      <if test="mPhone != null">
+        m_phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userLoginId != null">
+        #{userLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="currentPassword != null">
+        #{currentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="mSex != null">
+        #{mSex,jdbcType=VARCHAR},
+      </if>
+      <if test="mAge != null">
+        #{mAge,jdbcType=INTEGER},
+      </if>
+      <if test="mMoney != null">
+        #{mMoney,jdbcType=REAL},
+      </if>
+      <if test="mPhone != null">
+        #{mPhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hbxy.ssm.admin.user.model.UserLoginExample" resultType="java.lang.Long">
+    select count(*) from user_login
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_login
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userLoginId != null">
+        user_login_id = #{record.userLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentPassword != null">
+        current_password = #{record.currentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userType != null">
+        user_type = #{record.userType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mSex != null">
+        m_sex = #{record.mSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mAge != null">
+        m_age = #{record.mAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.mMoney != null">
+        m_money = #{record.mMoney,jdbcType=REAL},
+      </if>
+      <if test="record.mPhone != null">
+        m_phone = #{record.mPhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_login
+    set user_id = #{record.userId,jdbcType=VARCHAR},
+      user_login_id = #{record.userLoginId,jdbcType=VARCHAR},
+      current_password = #{record.currentPassword,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_type = #{record.userType,jdbcType=VARCHAR},
+      m_sex = #{record.mSex,jdbcType=VARCHAR},
+      m_age = #{record.mAge,jdbcType=INTEGER},
+      m_money = #{record.mMoney,jdbcType=REAL},
+      m_phone = #{record.mPhone,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hbxy.ssm.admin.user.model.UserLogin">
+    update user_login
+    <set>
+      <if test="userLoginId != null">
+        user_login_id = #{userLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="currentPassword != null">
+        current_password = #{currentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="mSex != null">
+        m_sex = #{mSex,jdbcType=VARCHAR},
+      </if>
+      <if test="mAge != null">
+        m_age = #{mAge,jdbcType=INTEGER},
+      </if>
+      <if test="mMoney != null">
+        m_money = #{mMoney,jdbcType=REAL},
+      </if>
+      <if test="mPhone != null">
+        m_phone = #{mPhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hbxy.ssm.admin.user.model.UserLogin">
+    update user_login
+    set user_login_id = #{userLoginId,jdbcType=VARCHAR},
+      current_password = #{currentPassword,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      m_sex = #{mSex,jdbcType=VARCHAR},
+      m_age = #{mAge,jdbcType=INTEGER},
+      m_money = #{mMoney,jdbcType=REAL},
+      m_phone = #{mPhone,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

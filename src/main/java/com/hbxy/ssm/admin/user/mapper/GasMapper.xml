@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbxy.ssm.admin.user.mapper.GasMapper">
+  <resultMap id="BaseResultMap" type="com.hbxy.ssm.admin.user.model.Gas">
+    <id column="g_id" jdbcType="VARCHAR" property="gId" />
+    <result column="g_name" jdbcType="VARCHAR" property="gName" />
+    <result column="g_type" jdbcType="VARCHAR" property="gType" />
+    <result column="g_u_money" jdbcType="REAL" property="gUMoney" />
+    <result column="g_v_money" jdbcType="REAL" property="gVMoney" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    g_id, g_name, g_type, g_u_money, g_v_money
+  </sql>
+  <select id="selectByExample" parameterType="com.hbxy.ssm.admin.user.model.GasExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from g_gas
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from g_gas
+    where g_id = #{gId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from g_gas
+    where g_id = #{gId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hbxy.ssm.admin.user.model.GasExample">
+    delete from g_gas
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hbxy.ssm.admin.user.model.Gas">
+    insert into g_gas (g_id, g_name, g_type, 
+      g_u_money, g_v_money)
+    values (#{gId,jdbcType=VARCHAR}, #{gName,jdbcType=VARCHAR}, #{gType,jdbcType=VARCHAR}, 
+      #{gUMoney,jdbcType=REAL}, #{gVMoney,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hbxy.ssm.admin.user.model.Gas">
+    insert into g_gas
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gId != null">
+        g_id,
+      </if>
+      <if test="gName != null">
+        g_name,
+      </if>
+      <if test="gType != null">
+        g_type,
+      </if>
+      <if test="gUMoney != null">
+        g_u_money,
+      </if>
+      <if test="gVMoney != null">
+        g_v_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gId != null">
+        #{gId,jdbcType=VARCHAR},
+      </if>
+      <if test="gName != null">
+        #{gName,jdbcType=VARCHAR},
+      </if>
+      <if test="gType != null">
+        #{gType,jdbcType=VARCHAR},
+      </if>
+      <if test="gUMoney != null">
+        #{gUMoney,jdbcType=REAL},
+      </if>
+      <if test="gVMoney != null">
+        #{gVMoney,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hbxy.ssm.admin.user.model.GasExample" resultType="java.lang.Long">
+    select count(*) from g_gas
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update g_gas
+    <set>
+      <if test="record.gId != null">
+        g_id = #{record.gId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gName != null">
+        g_name = #{record.gName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gType != null">
+        g_type = #{record.gType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gUMoney != null">
+        g_u_money = #{record.gUMoney,jdbcType=REAL},
+      </if>
+      <if test="record.gVMoney != null">
+        g_v_money = #{record.gVMoney,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update g_gas
+    set g_id = #{record.gId,jdbcType=VARCHAR},
+      g_name = #{record.gName,jdbcType=VARCHAR},
+      g_type = #{record.gType,jdbcType=VARCHAR},
+      g_u_money = #{record.gUMoney,jdbcType=REAL},
+      g_v_money = #{record.gVMoney,jdbcType=REAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hbxy.ssm.admin.user.model.Gas">
+    update g_gas
+    <set>
+      <if test="gName != null">
+        g_name = #{gName,jdbcType=VARCHAR},
+      </if>
+      <if test="gType != null">
+        g_type = #{gType,jdbcType=VARCHAR},
+      </if>
+      <if test="gUMoney != null">
+        g_u_money = #{gUMoney,jdbcType=REAL},
+      </if>
+      <if test="gVMoney != null">
+        g_v_money = #{gVMoney,jdbcType=REAL},
+      </if>
+    </set>
+    where g_id = #{gId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hbxy.ssm.admin.user.model.Gas">
+    update g_gas
+    set g_name = #{gName,jdbcType=VARCHAR},
+      g_type = #{gType,jdbcType=VARCHAR},
+      g_u_money = #{gUMoney,jdbcType=REAL},
+      g_v_money = #{gVMoney,jdbcType=REAL}
+    where g_id = #{gId,jdbcType=VARCHAR}
+  </update>
+</mapper>
